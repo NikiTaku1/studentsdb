@@ -4,47 +4,66 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
-vector<string> names = {"Харитон","Артемий","Елисей","Александр","Дмитрий","Виктор","Изяслав","Ярослав","Ростислав","Фадей","Богдан","Сергей",
-                        "Пахом","Вадим","Макар","Марк","Митофан","Остап","Потап","Прохор","Радислав","Андрей","Артем","Олег","Валерий","Виталий","Владимир","Влас",
-                        "Вячеслав","Геннадий","Георгий","Герман","Глеб","Григорий","Давид","Данила","Дементий","Дмитрий","Денис","Евгений","Евдоким","Егор","Евстафий",
-                        "Елисей","Емельян","Игорь","Игнатий","Захар","Измаил","Илья","Иннокентий","Иосиф","Карл","Кирилл","Константин","Ян","Якуб","Юрий","Фома",
-                        "Тимофей","Тимур","Тимур","Тихон","Ульян","Федор"};
-vector<string> surnames = {"Харитонов","Артемин","Елисеев","Александров","Дмитриенко","Викторов","Фадеев","Богданов","Сергееев",
-                           "Пахомов","Вадаев","Макаренко","Марков","Митеев","Остапов","Потапов","Прохоров","Раденко","Андреев","Артеменко","Олеев","Валерьев","Витальев","Власов",
-                           "Вяткин","Геннадьев","Гет","Германский","Гленн","Григорьев","Давыденко","Даниленко","Дементьев","Дмитриев","Динаев","Евгеньев","Евдеев","Егерь","Евстафьев",
-                           "Елисеев","Емельяненко","Игорев","Игнатьев","Захаренко","Измайлов","Ильяненко","Иннокентьев","Сталин","Карлеев","Кириленко","Константинов","Янь","Якубов","Юрьев","Фомеенко",
-                           "Тимофеев","Тамилев","Темеев","Тихий","Ульяненко","Федоров"};
-vector<string> patnames = {"Харитонович","Артемьевич","Елисеевич","Александрович","Дмитриевич","Викторович","Изяславич","Ярославич","Ростиславич","Фадеевич","Богданович","Сергеевич",
-                        "Пахомович","Вадимович","Макарович","Маркович","Митофанович","Остапович","Потапович","Прохорович","Радиславич","Андрееевич","Артемович","Олегович","Валерьевич","Витальевич","Владимирович","Власович",
-                        "Вячеславич","Геннадьевич","Георгиевич","Германович","Глебович","Григорьевич","Давидович","Данилович","Дементьевич","Дмитриевич","Денисович","Евгеньевич","Евдокимович","Егорович","Евстафьевич",
-                        "Елисеевич","Емельянович","Игоревич","Игнатьевич","Захарович","Измаилович","Ильич","Иннокентьевич","Иосифович","Карлович","Кириллович","Константинович","Янович","Якубович","Юрьевич","Фомич",
-                        "Тимофееевич","Тимурович","Тихонович","Ульянович","Федорович"};
 vector<string> faculties = {"amcp", "mathmech", "physfac", "chemfac"};
 
 string RandomName(){
-    int namesize = static_cast<int>(names.size());
-    int surnamesize = static_cast<int>(surnames.size());
-    int patnamesize = static_cast<int>(patnames.size());
-    int ra = rand() % namesize;
-    int rb = rand() % surnamesize;
-    int rc = rand() % patnamesize;
-    string randname = surnames[rb]+' '+names[ra]+' '+patnames[rc];
-    return randname;
+    int namesize = 735;
+    int surnamesize = 14651;
+    int patnamesize = 94;
+    int random1 = rand() % namesize + 1;
+
+    ifstream in1("names.txt");
+    string result1;
+
+    for (int i = 0; i < random1; i++) {
+        getline(in1, result1);
+    }
+    int random2 = rand() % surnamesize + 1;
+
+    ifstream in2("surnames.txt");
+    string result2;
+
+    for (int i = 0; i < random2; i++) {
+        getline(in2, result2);
+    }
+    int random3 = rand() % patnamesize + 1;
+
+    ifstream in3("paternals.txt");
+    string result3;
+
+    for (int i = 0; i < random3; i++) {
+        getline(in3, result3);
+    }
+    return result2+' '+result1+' '+result3;
+}
+
+string RandomNumber(int a, int msize){
+    string a_str = to_string(a);
+    int l = (to_string(a).size());
+    int lmax = (to_string(msize).size());
+    for (a=1; a<(lmax-l+1); ++a){
+        a_str.insert (a_str.begin(), '0');
+    }
+    return a_str;
 }
 
 string RandomDate(){
-    return (to_string((rand()%28)+1))+ "." +(to_string((rand()%12)+1))+ "." +(to_string((rand()%6)+2000));
+    int a = ((rand()%4)+2001);
+    return (to_string((rand()%28)+1))+ "." +(to_string((rand()%12)+1))+ "." + to_string(a);
 }
 
 string RandomRoom(){
     return (to_string((rand()%1400)+100))+"_"+(to_string((rand()%14)+10));
 }
 
-string RandomCourse(){
-    return (to_string((rand()%4)+1))+"_"+(faculties[rand()%4]);
+string RandomCourse(string a){
+    string asub = a.substr(a.size()-4, 4);
+
+    return to_string(2005-stoi(asub)) + '_' + (faculties[rand()%4]);
 }
 class Student {
 private:
@@ -83,17 +102,21 @@ int main() {
 //        cout << "Name: ";
         pname = RandomName();
 //        cout << "Number: ";
-        pnum = to_string(i+1);
+//        pnum = to_string(i+1);
+        pnum = RandomNumber(i+1, size);
 //        cout << "Date of birth: ";
-        pdate = RandomDate();
+        string a;
+        a = RandomDate();
+        pdate = a;
 //        cout << "Room_Dormitory: ";
         proom = RandomRoom();
 //        cout << "Course_Faculty: ";
-        pcou_fac = RandomCourse();
+        pcou_fac = RandomCourse(a);
 
         Student p; // объявление объекта
         p.setName(pname);
         p.setNumber(pnum);
+        pnum="";
         p.setDate(pdate);
         p.setRoom(proom);
         p.setCourseAndFaculty(pcou_fac);
@@ -108,14 +131,15 @@ int main() {
         cout << "\n";
     }
     
-    int n;
-    cin >> n;
-    cout << stdb[n-1].getName() << "\n";
-    cout << stdb[n-1].getNumber() << "\n";
-    cout << stdb[n-1].getDate() << "\n";
-    cout << stdb[n-1].getRoom() << "\n";
-    cout << stdb[n-1].getCourseAndFaculty() << "\n";
-    cout << "\n";
+//    cout << "Поиск по порядковому номеру:";
+//    int n;
+//    cin >> n;
+//    cout << stdb[n-1].getName() << "\n";
+//    cout << stdb[n-1].getNumber() << "\n";
+//    cout << stdb[n-1].getDate() << "\n";
+//    cout << stdb[n-1].getRoom() << "\n";
+//    cout << stdb[n-1].getCourseAndFaculty() << "\n";
+//    cout << "\n";
 
     system("pause");
 
