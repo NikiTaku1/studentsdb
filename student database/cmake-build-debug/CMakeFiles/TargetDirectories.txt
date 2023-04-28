@@ -1,0 +1,3 @@
+C:/Users/Zver/CLionProjects/student database/cmake-build-debug/CMakeFiles/student_database.dir
+C:/Users/Zver/CLionProjects/student database/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Zver/CLionProjects/student database/cmake-build-debug/CMakeFiles/rebuild_cache.dir
