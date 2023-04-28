@@ -116,12 +116,12 @@ int main() {
         p.setCourseAndFaculty(pcou_fac);
 
         stdb.push_back(p);
-        cout << stdb[i].getName() << "\n"; //вывод каждой карточки
-        cout << stdb[i].getNumber() << "\n";
-        cout << stdb[i].getDate() << "\n";
-        cout << stdb[i].getRoom() << "\n";
-        cout << stdb[i].getCourseAndFaculty() << "\n";
-        cout << "\n";
+//        cout << stdb[i].getName() << "\n"; //вывод каждой карточки
+//        cout << stdb[i].getNumber() << "\n";
+//        cout << stdb[i].getDate() << "\n";
+//        cout << stdb[i].getRoom() << "\n";
+//        cout << stdb[i].getCourseAndFaculty() << "\n";
+//        cout << "\n";
     }
 
     SetConsoleCP(866);
