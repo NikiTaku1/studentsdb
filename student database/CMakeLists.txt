@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(student_database
-        db.cpp
-        RBTNode.h
-        RBTree.h
-        test.cpp)
+        dbgen.cpp
+        AVLTree.h
+)

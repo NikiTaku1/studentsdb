@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include "AVLTree.h"
 
 using namespace std;
 
@@ -116,12 +117,68 @@ int main() {
         p.setCourseAndFaculty(pcou_fac);
 
         stdb.push_back(p);
-//        cout << stdb[i].getName() << "\n"; //вывод каждой карточки
+        cout << stdb[i].getName() << "\n"; //вывод каждой карточки
 //        cout << stdb[i].getNumber() << "\n";
 //        cout << stdb[i].getDate() << "\n";
 //        cout << stdb[i].getRoom() << "\n";
 //        cout << stdb[i].getCourseAndFaculty() << "\n";
 //        cout << "\n";
+    }
+
+
+    int choice;
+    cout << "Choose search criteria" << "\n";
+    cout << "1: Full Name, 2: Id Number" << "\n";
+    cin >> choice;
+    if (choice == 1){
+        AVL<string, Student*> tree1([](string a, string b) -> bool {
+            return a < b;
+        });
+
+        for (int i=0; i<size; ++i){
+            tree1.push(stdb[i].getName(), &stdb[i]);
+        }
+        string entername11;
+        cout << "Enter Surname:";
+        cin >> entername11;
+        string entername12;
+        cout << "Enter Name:";
+        cin >> entername12;
+        string entername13;
+        cout << "Enter Paternal:";
+        cin >> entername13;
+        string entername1 = entername11+' '+entername12+' '+entername13;
+        auto ans1 = tree1.find(entername1);
+        for (int j = 0; j < (ans1.size()); j++) {
+            cout << (*ans1[j]).getName() << "\n"; //вывод каждой карточки
+            cout << (*ans1[j]).getNumber() << "\n";
+            cout << (*ans1[j]).getDate() << "\n";
+            cout << (*ans1[j]).getRoom() << "\n";
+            cout << (*ans1[j]).getCourseAndFaculty() << "\n";
+        }
+        cout << '\n';
+    }
+
+    if (choice == 2){
+        AVL<string, Student*> tree2([](string a, string b) -> bool {
+            return a < b;
+        });
+
+        for (int i=0; i<size; ++i){
+            tree2.push(stdb[i].getNumber(), &stdb[i]);
+        }
+        string entername2;
+        cout << "Enter ID Number:";
+        cin >> entername2;
+        auto ans2 = tree2.find(entername2);
+        for (int j = 0; j < (ans2.size()); j++) {
+            cout << (*ans2[j]).getName() << "\n"; //вывод каждой карточки
+            cout << (*ans2[j]).getNumber() << "\n";
+            cout << (*ans2[j]).getDate() << "\n";
+            cout << (*ans2[j]).getRoom() << "\n";
+            cout << (*ans2[j]).getCourseAndFaculty() << "\n";
+        }
+        cout << '\n';
     }
 
     SetConsoleCP(866);
